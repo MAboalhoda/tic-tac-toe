@@ -61,20 +61,19 @@ def player_input(col, row, p_input):
     except IndexError:
         print("Invalid Row input. \nplease put number not more than 3. error 2")
         board_filler()
-    except ValueError:
-        print("Invalid Row input.\nplease put number not more than 3. error 3")
-        board_filler()
+
 
 
 ###game rules and identifying the winner
 winning_pos = [[1, 4, 7],
-[2, 5, 8],
-[3, 6, 9],
-[1, 5, 9],
-[3, 5, 7],
-[1, 2, 3],
-[4, 5, 6],
-[7, 8, 9]]
+               [2, 5, 8],
+               [3, 6, 9],
+               [1, 5, 9],
+               [3, 5, 7],
+               [1, 2, 3],
+               [4, 5, 6],
+               [7, 8, 9]
+               ]
 
 def loc(col, row):
     for key, value in board_pos.items():
@@ -97,28 +96,49 @@ def check_pos(position):
 game_on = True
 # board_func()
 
+
 player1_pos = []
 player2_pos = []
 
 while game_on:
     print(start_screen)
 
-    board_func()
-    first_p = player_1()
-    player_input(first_p[0], first_p[1], first_p[2])
-    player1_pos.append(loc(first_p[0], int(first_p[1])))
-    if check_pos(player1_pos):
-        game_on = False
+
+    try:
+        board_func()
+        first_p = player_1()
+        player_input(first_p[0], first_p[1], first_p[2])
+        player1_pos.append(loc(first_p[0], int(first_p[1])))
+        if check_pos(player1_pos):
+            game_on = False
+    except ValueError:
+        print("Invalid Row input.\nplease put number not more than 3. error 3")
+        board_func()
+        first_p = player_1()
+        player_input(first_p[0], first_p[1], first_p[2])
+        player1_pos.append(loc(first_p[0], int(first_p[1])))
+        if check_pos(player1_pos):
+            game_on = False
 
 
-    board_func()
-    second_p = player_2()
-    player_input(second_p[0], second_p[1], second_p[2])
-    player2_pos.append(loc(second_p[0], int(second_p[1])))
-    if check_pos(player2_pos):
-        game_on = False
+    try:
+        board_func()
+        second_p = player_2()
+        player_input(second_p[0], second_p[1], second_p[2])
+        player2_pos.append(loc(second_p[0], int(second_p[1])))
+        if check_pos(player2_pos):
+            game_on = False
+    except ValueError:
+        board_func()
+        second_p = player_2()
+        player_input(second_p[0], second_p[1], second_p[2])
+        player2_pos.append(loc(second_p[0], int(second_p[1])))
+        if check_pos(player2_pos):
+            game_on = False
 
 
+    occupied_pos = player1_pos + player2_pos
+    print(occupied_pos)
 
     # print("p1 pos: ", player1_pos)
     # print("p2 pos: ", player2_pos)
