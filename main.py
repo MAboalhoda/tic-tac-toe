@@ -81,15 +81,16 @@ def loc(col, row):
             position = key
             return position
 
-def check_pos(position):
-    score = 0
-    for loc in position:
-        for item in winning_pos:
-            if loc in item and len(position) >= 3:
-                score += 1
-    if score == 3:
-        return True
-#print(loc("a", 3))
+def check_pos(position, win_pos):
+    sorted_pos = sorted(position)
+    for win_pos in win_pos:
+        if sorted(win_pos) == sorted_pos:
+            return True
+            # print(win_pos, sorted_pos)
+
+
+#print(loc("a", 3))a
+
 
 #####################
 
@@ -109,7 +110,7 @@ while game_on:
         first_p = player_1()
         player_input(first_p[0], first_p[1], first_p[2])
         player1_pos.append(loc(first_p[0], int(first_p[1])))
-        if check_pos(player1_pos):
+        if check_pos(player1_pos, winning_pos):
             game_on = False
     except ValueError:
         print("Invalid Row input.\nplease put number not more than 3. error 3")
@@ -117,7 +118,7 @@ while game_on:
         first_p = player_1()
         player_input(first_p[0], first_p[1], first_p[2])
         player1_pos.append(loc(first_p[0], int(first_p[1])))
-        if check_pos(player1_pos):
+        if check_pos(player1_pos, winning_pos):
             game_on = False
 
 
@@ -126,16 +127,15 @@ while game_on:
         second_p = player_2()
         player_input(second_p[0], second_p[1], second_p[2])
         player2_pos.append(loc(second_p[0], int(second_p[1])))
-        if check_pos(player2_pos):
+        if check_pos(player2_pos, winning_pos):
             game_on = False
     except ValueError:
         board_func()
         second_p = player_2()
         player_input(second_p[0], second_p[1], second_p[2])
         player2_pos.append(loc(second_p[0], int(second_p[1])))
-        if check_pos(player2_pos):
+        if check_pos(player2_pos, winning_pos):
             game_on = False
-
 
     occupied_pos = player1_pos + player2_pos
     print(occupied_pos)
