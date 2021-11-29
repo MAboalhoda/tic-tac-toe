@@ -40,34 +40,45 @@ def board_func():
 
 def player_1():
     col = input('Player "X": Select column A,B or C: ').lower()
+    # print(col, type(col))
+    # if col != "a" or col != "b" or col != "c":
+    while col not in ["a", "b", "c"]:
+        print("Invalid Column input. \nplease put number not more than 3. error 1")
+        col = input('Player "X": Select column A,B or C: ').lower()
+
     row = input('Player "X": Select row number 1,2 or 3: ')
-    return col, int(row), "X"
+    while row not in ["1", "2", "3"]:
+        print("Invalid Row input. \nplease put number not more than 3. error 2")
+        row = input('Player "X": Select row number 1,2 or 3: ')
+    return col, int(row),"X"
 
 
 def player_2():
     col = input('Player "O": Select column A,B or C: ').lower()
+    # if col != "a" or col != "b" or col != "c":
+    while col not in ["a" ,"b", "c"]:
+        print("Invalid Column input. \nplease put number not more than 3. error 1")
+        col = input('Player "O": Select column A,B or C: ').lower()
+
     row = input('Player "O": Select row number 1,2 or 3: ')
+    while row not in ["1", "2", "3"]:
+        print("Invalid Row input. \nplease put number not more than 3. error 2")
+        row = input('Player "O": Select row number 1,2 or 3: ')
+
     return col, int(row), "O"
 
 
 def player_input(col, row, p_input):
     """This function is the dynamic for the game with user inputs warning if
     they tried diffrent inputs than expected """
-
     def board_filler():
         for i in range(3):
             if col == "a" or col == "c":
                 board_dict[col][row - 1] = "| " + p_input + " |"
             elif col == "b":
                 board_dict[col][row - 1] = p_input
-    try:
-        board_filler()
-        if col != "a" or col != "b" or col != "c":
-            print("Invalid Column input.\nPlease chose column A, B or C error 1")
-            board_filler()
-    except IndexError:
-        print("Invalid Row input. \nplease put number not more than 3. error 2")
-        board_filler()
+    board_filler()
+
 
 
 
@@ -118,7 +129,6 @@ while game_on:
     while winning_positions:
 
         if not check_pos(player1_pos, player2_pos):
-
             board_func()
             first_p = player_1()
             player_input(first_p[0], first_p[1], first_p[2])
@@ -133,17 +143,14 @@ while game_on:
         else:
             winning_positions = False
 
-        occupied_pos = player1_pos + player2_pos
 
+        print("p1 pos: ", player1_pos)
+        print("p2 pos: ", player2_pos)
+
+        occupied_pos = player1_pos + player2_pos
+    print(occupied_pos)
 
     game_on = False
-
-
-
-    # print(occupied_pos)
-    #
-    # print("p1 pos: ", player1_pos)
-    # print("p2 pos: ", player2_pos)
     system('cls')
 
 board_func()
